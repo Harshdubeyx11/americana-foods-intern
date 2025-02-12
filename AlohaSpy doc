@@ -1,0 +1,38 @@
+AlohaSpy Overview
+Nature: AlohaSpy is a type of spyware/malware designed to steal sensitive information from target devices.
+
+Primary Function: It operates by infiltrating systems, collecting data, and transmitting it to an external server.
+Target Systems: It primarily affects certain operating systems or POS (Point of Sale) terminals.
+Working Mechanism
+
+Data Collection: The malware gathers keystrokes, screenshots, and sensitive transaction data.
+Network Communication: Uses APIs or network protocols to send collected data.
+Stealth Mechanism: Implements obfuscation and encryption techniques to avoid detection.
+Technical Details
+Programming Language: Likely written in Python, C++, or a similar language.
+Database Interaction: Utilizes MySQL or SQLite for storing transaction logs before sending.
+Hyperlinking & CSV Usage: Matches bill transactions and logs suspicious activities for analysis.
+Hosting: The final application is hosted on Amazon EC2 for remote access and monitoring.
+
+Fraud Detection Techniques
+Analyzing POS Transactions: Identifies voided transactions, discounts, and cancellations to detect anomalies.
+Camera Integration: Matches transaction timestamps with security footage.
+Automated Alerts: Sends real-time alerts for suspicious transactions.
+
+Core Product: Aloha QuickService or TableService is required.
+Hardware Requirements:
+TVS camera
+DVR (Digital Video Recorder)
+Video Text Inserter
+Monitor
+Recommended: A second BOH (Back of House) computer for video storage.
+License Requirement: No separate license required.
+
+Functionality
+Transaction Verification System (TVS) Interface:
+Connects with security systems for monitoring.
+Gathers data from FOH (Front of House) terminals via TCP network.
+Sends transaction data to the security system via COM ports or another connection.
+Displays transaction information on a remote display system.
+Records transactions in a database.
+
