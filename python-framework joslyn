@@ -1,0 +1,297 @@
+#DEFINING LISTENER FUNCTIONS FOR EACH TRANSACTION TYPE
+def accept_table_listener(spy_msg):
+    print("II|", f"Accept table {spy_msg['nTableId']}","#", "|",f"{spy_msg.dAmount}","|", None)
+
+def add_check_listener(spy_msg):
+    print("II|", f"Check # {spy_msg['nCheckId']} # added"," |",None,"|", None)
+
+def add_item_listener(spy_msg):
+    print("IT|", f"{spy_msg['szDescription']}","|",f"{spy_msg['dAmount']}","|", f"{spy_msg['nQuantity']}")
+
+def adj_pay_listener(spy_msg):
+    print("II|", f"Adjust payment check #{spy_msg['dAmount']}","|", f"{spy_msg['dAmount']}","|", None)
+
+def apply_comp_listener(spy_msg):
+    print("DD|", f"Comp{spy_msg['szDescription']} applied","|", f"{spy_msg['dAmount']}","|", None)
+
+def apply_grat_listener(spy_msg):
+    print("II|", "Gratituity Applied", "|",f"{spy_msg['dAmount']}","|", None)  
+
+def apply_payment_listener(spy_msg):
+    print("AM|", f"{spy_msg['szDescription']}", "|",f"{spy_msg['dAmount']}","|", None)  
+
+def apply_promo_listener(spy_msg):
+    print("II|", f"Promotion{spy_msg['szDescription']} applied", "|",f"{spy_msg['dAmount']}","|", f"{spy_msg['nQuantity']}")  
+
+def assign_draw_listener(spy_msg):
+    print("II|", f"Drawer assigned to {spy_msg['szEmployeeName']}", "|",f"{spy_msg['dAmount']}","|", None)  
+
+def auth_pay_listener(spy_msg):
+    print("II|", f"Payment Authorization:{spy_msg['szDescription']}#", "|",None,"|", None)  
+
+def bal_due_listener(spy_msg):
+    print("TT|","Balance Due", "|",f"{spy_msg['dAmount']}","|", None)
+
+def break_end_listener(spy_msg):
+    print("II|", f"End break: {spy_msg['szEmployeeName']}","|", None,"|", None)
+    print("II|", f"End time: {spy_msg['szTime']}", "|",None,"|", None)
+
+    if spy_msg['nManagerId']:
+        print("II |", f"Approved by {spy_msg['szManagerName']}","|", None,"|", None)
+
+def break_start_listener(spy_msg):
+    print("II|", f"Begin Break: {spy_msg['szEmployeeName']}","|", None,"|", None)
+    print("II|", f"Start time: {spy_msg['szTime']}", "|",None,"|", None)
+
+def cancel_item_listener(spy_msg):
+    print("CX|", f"Cancel {spy_msg['szDescription']}","|",f"{spy_msg['dAmount']}","|", None)
+
+def change_due_listener(spy_msg):
+    print("CH|","Change Due", "|",f"{spy_msg['dAmount']}","|", None)
+
+def checkout_listener(spy_msg):
+    print("II|",f"Checkout{spy_msg['szEmployeeName']}", "|",None,"|", None)
+    print("II|",f"Checkout approved by {spy_msg['szManagerName']}", "|",None,"|", None)
+
+def clear_pass_listener(spy_msg):
+    print("II|", f"Clear password {spy_msg['szEmployeeName']}","|", None,"|", None)
+    print("II |", f"Approved by {spy_msg['szManagerName']}","|", None,"|", None)
+
+def clock_in_listener(spy_msg):
+    print("II|", f"Clock in {spy_msg['szEmployeeName']}","|", None,"|", None)
+    print("II|", f"Start time: {spy_msg['szTime']}", "|",None,"|", None)
+
+    if spy_msg['nManagerId']:
+        print("II |", f"Approved by {spy_msg['szManagerName']}","|", None,"|", None)
+
+def clock_out_listener(spy_msg):
+    print("II|", f"Clock out {spy_msg['szEmployeeName']}","|", None,"|", None)
+    print("II|", f"End time: {spy_msg['szTime']}", "|",None,"|", None)
+
+def close_check_listener(spy_msg):
+    print("II|", f"Check # {spy_msg['nCheckId']}","# closed", "|",f"{spy_msg['dAmount']}","|", None)
+
+def current_time_listener(spy_msg):
+    print("TI|", f"{spy_msg['szDescription']}", "|",None,"|", None)  
+
+def dec_pay_listener(spy_msg):
+    print("II|", f"Declined:{spy_msg['szDescription']}#", "|",None,"|", None)  
+
+def del_checkout_listener(spy_msg):
+    print("Delete Checkout transaction received.")
+
+def del_clockout_listener(spy_msg):
+    print("II|", f"Delete Clockout: {spy_msg['szEmployeeName']}","|", None,"|", None)
+    print("II |", f"Delete approved by {spy_msg['szManagerName']}","|", None,"|", None)
+
+def del_comp_listener(spy_msg):
+    print("II|", f"Delete Comp {spy_msg['szDescription']}", "|",None,"|", None)  
+    print("II|", f"Delete Approved By {spy_msg['szManagerName']}", "|",None,"|", None)  
+
+def del_grat_listener(spy_msg):
+    print("II|", "Gratituity Deleted", "|",f"{spy_msg['dAmount']}","|", None)  
+
+def del_pay_listener(spy_msg):
+    print("II |", f"Payment {spy_msg['szDescription']} deleted","|", None,"|", None)
+
+def del_promo_listener(spy_msg):
+    print("II|", f"Delete Promo{spy_msg['szDescription']}", "|",None,"|", None)  
+    print("II|", f"Delete Approved By {spy_msg['szManagerName']}", "|",None,"|", None)  
+
+def draw_closed_listener(spy_msg):
+    print("DC|", None,"|", None,"|", None)
+
+def draw_open_listener(spy_msg):
+    print("DO|", None,"|", None,"|", None)
+
+def force_auth_listener(spy_msg):
+    print("II|", f"Authorization forced by{spy_msg['szManagerName']}", "|",None,"|", None)
+
+def get_check_listener(spy_msg):
+    print("II|", f"Requested Check # {spy_msg['nCheckId']}","#", "|",f"{spy_msg['dAmount']}","|", None)
+
+def hold_item_listener(spy_msg):
+    print("II|", f" Stored Item {spy_msg['szDescription']}", "|", None,"|", None)
+
+def log_in_listener(spy_msg):
+    print("EI|", f"Log in {spy_msg['szEmployeeName']}", "|",None,"|", None)
+
+def log_out_listener(spy_msg):
+    print("EO|", f"Log out {spy_msg['szEmployeeName']}", "|",None,"|", None)
+
+def move_items_listener(spy_msg):
+    print("II|", f"{spy_msg['szDescription']} moved", "|",f"{spy_msg['dAmount']}","|", None)
+
+def no_sale_listener(spy_msg):
+    print("NS|", f"Opened Drawer:{spy_msg['szDescription']}","|", None,"|", None)
+
+def open_item_listener(spy_msg):
+    print("IT|", f"{spy_msg['szDescription']}", "|",f"{spy_msg['dAmount']}","|", f"{spy_msg['nQuantity']}")
+
+def open_table_tab_listener(spy_msg):
+    print("TK| Open Ticekt Table# |", None,"|", None)
+
+def order_items_listener(spy_msg):
+    print("II| Items ordered", "|",None,"|", None)
+
+def paid_in_listener(spy_msg):
+    print("CD| Paid in account name",f"{spy_msg['dAmount']}", "|",None,"|", None)
+
+def paid_out_listener(spy_msg):
+    print("CD| Paid out account name",f"{spy_msg['dAmount']}", "|",None,"|", None)
+
+def print_check_listener(spy_msg):
+    print("II|", f"Check # {spy_msg['nCheckId']} # printed"," |",None,"|", None)
+
+def print_checkout_listener(spy_msg):
+    print("II| Checkout printed", "|",None,"|", None)
+
+def recall_check_listener(spy_msg):
+    print("II|", f"Check # {spy_msg['nCheckId']}","# recalled", "|",f"{spy_msg['dAmount']}","|", None)
+
+def refund_items_listener(spy_msg):
+    print("RF|",f"Refund Item {spy_msg['szDescription']}", "|",f"{spy_msg['dAmount']}","|", None)
+
+def refund_order_listener(spy_msg):
+    print("RF|","Refund item", "|",f"{spy_msg['dAmount']}","|", f"{spy_msg['nQuantity']}")
+
+def reopen_check_listener(spy_msg):
+    print("II|", f"Check # {spy_msg['nCheckId']}","# reopened", "|",None,"|", None)
+    print("II|", f"Reopen authorized by {spy_msg['szManagerName']}", "|",None,"|", None)
+
+def report_ran_listener(spy_msg):
+    print("II|", f"Ran Report {spy_msg['szDescription']}", "|",None,"|", None)  
+
+def return_check_listener(spy_msg):
+    print("II|", f"Check # {spy_msg['nCheckId']}","# returned", "|",f"{spy_msg['dAmount']}","|", None)
+
+def select_order_listener(spy_msg):
+    print("II|", f"Order {spy_msg['nCheckId']}","# Selected", "|",None,"|", None)
+
+def split_item_listener(spy_msg):
+    print("II|", f"Item {spy_msg['szDescription']} split", "|",None,"|", None)
+
+def subtotal_listener(spy_msg):
+    print("II|","Subtotal", "|",f"{spy_msg['dAmount']}","|", None)
+
+def tax_listener(spy_msg):
+    print("TX|","Tax", "|",f"{spy_msg['dAmount']}","|", None)
+
+def tax_exempt_listener(spy_msg):
+    print("II|",f"Tax Exempt # {spy_msg['szDescription']} ", "|",f"{spy_msg['dAmount']}","|", None)
+
+def total_listener(spy_msg):
+    print("TT|","Total Due", "|",f"{spy_msg['dAmount']}","|", None)
+
+def transfer_check_listener(spy_msg):
+    print("II|", f"Transfer check {spy_msg['nCheckId']}","#", "|",f"{spy_msg['dAmount']}","|", None)
+    print("II|", f"Transfer approved by {spy_msg['szManagerName']}","#", "|",f"{spy_msg['dAmount']}",None,"|", None)
+
+def transfer_table_listener(spy_msg):
+    print("II|", f"Transfer table {spy_msg['nTableId']}","#", "|",f"{spy_msg['dAmount']}","|", None)
+    print("II|", f"Transfer approved by {spy_msg['szManagerName']}","#", "|",f"{spy_msg['dAmount']}",None,"|", None)
+
+def void_item_listener(spy_msg):
+    print("VX|", f"Void {spy_msg['szDescription']}", "|",f"{spy_msg['dAmount']}","|", f"{spy_msg['nQuantity']}")
+    print("II|", f"Void approved by {spy_msg['szManagerName']}", "|",None,"|", None)
+
+def void_order_listener(spy_msg):
+    print("II|", f"Order Void: {spy_msg.szDescription}", "|",None,"|", None)
+
+#MAP TRANSACTION ID'S TO THE RESPECTIVE LISTENERS
+transaction_listeners = {
+    19: accept_table_listener,
+    13: add_check_listener,
+    8: add_item_listener,
+    30: adj_pay_listener,
+    33: apply_comp_listener,
+    36: apply_grat_listener,
+    26: apply_payment_listener,
+    32: apply_promo_listener,
+    56: assign_draw_listener,
+    27: auth_pay_listener,
+    48: bal_due_listener,
+    6: break_end_listener,
+    5: break_start_listener,
+    9: cancel_item_listener,
+    57: change_due_listener,
+    42: checkout_listener,
+    58: clear_pass_listener,
+    3: clock_in_listener,
+    4: clock_out_listener,
+    22: close_check_listener,
+    54: current_time_listener,
+    28: dec_pay_listener,
+    44: del_checkout_listener,
+    45: del_clockout_listener,
+    35: del_comp_listener,
+    37: del_grat_listener,
+    31: del_pay_listener,
+    34: del_promo_listener,
+    39: draw_closed_listener,
+    38: draw_open_listener,
+    29: force_auth_listener,
+    20: get_check_listener,
+    12: hold_item_listener,
+    1: log_in_listener,
+    2: log_out_listener,
+    14: move_items_listener,
+    46: no_sale_listener,
+    53: open_item_listener,
+    7: open_table_tab_listener,
+    11: order_items_listener,
+    40: paid_in_listener,
+    41: paid_out_listener,
+    15: print_check_listener,
+    43: print_checkout_listener,
+    24: recall_check_listener,
+    51: refund_items_listener,
+    50: refund_order_listener,
+    23: reopen_check_listener,
+    55: report_ran_listener,
+    21: return_check_listener,
+    25: select_order_listener,
+    16: split_item_listener,
+    49: subtotal_listener,
+    47: tax_listener,
+    52: tax_exempt_listener,
+    59: total_listener,
+    17: transfer_check_listener,
+    18: transfer_table_listener,
+    10: void_item_listener,
+    60: void_order_listener
+}
+
+# def header_message_listener(header_msg):
+#     print("Received headerMessage:")
+#     print(f"bIberProtocol: {header_msg.bIberProtocol}")
+#     print(f"uTermId: {header_msg.uTermId}")
+#     print(f"MsgType: {header_msg.MsgType}")
+#     print(f"uCRC: {header_msg.uCRC}")
+
+# def spy_message_listener(spy_msg):
+#     print("Received spyMessage:")
+#     header_message_listener(spy_msg.headerMsg)
+#     print(f"szTime: {spy_msg.szTime}")
+#     print(f"nEmployeeId: {spy_msg.nEmployeeId}")
+#     print(f"szEmployeeName: {spy_msg.szEmployeeName}")
+#     print(f"nManagerId: {spy_msg.nManagerId}")
+#     print(f"szManagerName: {spy_msg.szManagerName}")
+#     print(f"nTableId: {spy_msg.nTableId}")
+#     print(f"nCheckId: {spy_msg.nCheckId}")
+#     print(f"nTransactionType: {spy_msg.nTransactionType}")
+#     print(f"szDescription: {spy_msg.szDescription}")
+#     print(f"dAmount: {spy_msg.dAmount}")
+#     print(f"nQuantity: {spy_msg.nQuantity}")
+
+# Function to dispatch transactions to their listener functions
+# def process_transaction(transaction_id, spy_msg):
+#     if transaction_id in transaction_listeners:
+#         transaction_listeners[transaction_id](spy_msg)
+#     else:
+#         print(f"No listener found for transaction ID {transaction_id}.")
+
+# Function to process spy messages
+# def process_message(spy_msg):
+#     spy_message_listener(spy_msg)
+#     process_transaction(spy_msg.nTransactionType, spy_msg)
