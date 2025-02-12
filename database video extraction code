@@ -1,0 +1,75 @@
+import os
+import re
+import pymysql
+from datetime import datetime, timedelta
+from moviepy.editor import VideoFileClip
+
+# Database connection
+db = pymysql.connect(host='localhost', user='root', password='password', database='americana1')
+cursor = db.cursor()
+
+# Folder and file paths
+nvr_folder = os.path.expanduser("~/Desktop/nvr")
+storename_path = os.path.join(nvr_folder, "storename.mp4")
+
+# Function to get duration of a video using moviepy
+def get_video_duration(video_path):
+    clip = VideoFileClip(video_path)
+    return clip.duration  # Duration in seconds
+
+# Function to merge two videos using ffmpeg
+def merge_videos(video1_path, video2_path, output_path):
+    input1 = ffmpeg.input(video1_path)
+    input2 = ffmpeg.input(video2_path)
+    ffmpeg.concat(input1, input2, v=1, a=1).output(output_path).run()
+
+# Get current duration of storename.mp4( that is the total duration where storename has ended)
+storename_duration = get_video_duration(storename_path)
+
+# Fetch logs from database
+cursor.execute("SELECT dob FROM logs ORDER BY dob ASC")
+logs = cursor.fetchall()
+
+# Monitor nvr folder for new videos(keeps checking for new vids)
+new_videos = [f for f in os.listdir(nvr_folder) if f.endswith(".mp4") and f != "storename.mp4"]
+new_videos.sort()
+
+# Extract start times from video filenames
+video_start_times = {}
+for video in new_videos:
+    match = re.match(r"D01_(\d{14})\.mp4", video)
+    if match:
+        start_time_str = match.group(1)
+        print(f"Extracted start time string: {start_time_str}")  # Debugging line to check the string
+        if len(start_time_str) == 14:  # Ensure the string is exactly 14 characters long
+            start_time = datetime.strptime(start_time_str, "%Y%m%d%H%M%S")
+            video_start_times[video] = start_time
+        else:
+            print(f"Error: extracted string is not 14 characters long: {start_time_str}")
+
+# Determine end times for videos
+video_end_times = {}
+sorted_videos = sorted(video_start_times.items(), key=lambda x: x[1])
+for i, (video, start_time) in enumerate(sorted_videos):
+    if i + 1 < len(sorted_videos):
+        next_start_time = sorted_videos[i + 1][1]
+        video_end_times[video] = next_start_time
+    else:
+        video_end_times[video] = datetime.max
+
+# Calculate vdob for each log
+for log in logs:
+    order_time = log[0]
+    for video, start_time in video_start_times.items():
+        if start_time <= order_time < video_end_times[video]:
+            vdob = storename_duration + (order_time - start_time).total_seconds()
+            cursor.execute("UPDATE logs SET vdob=%s WHERE dob=%s", (vdob, order_time))
+            db.commit()
+
+# Merge videos into storename.mp4
+for video in new_videos:
+    merge_videos(storename_path, os.path.join(nvr_folder, video), storename_path)
+
+# Close database connection
+cursor.close()
+db.close()
