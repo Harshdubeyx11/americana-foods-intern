@@ -4,20 +4,20 @@ import pymysql
 from datetime import datetime, timedelta
 from moviepy.editor import VideoFileClip
 
-# Database connection
+# Database connection object
 db = pymysql.connect(host='localhost', user='root', password='password', database='americana1')
 cursor = db.cursor()
 
-# Folder and file paths
+# Folder and file paths handling /
 nvr_folder = os.path.expanduser("~/Desktop/nvr")
 storename_path = os.path.join(nvr_folder, "storename.mp4")
 
-# Function to get duration of a video using moviepy
+# Function to get duration of a video using moviepy 
 def get_video_duration(video_path):
     clip = VideoFileClip(video_path)
     return clip.duration  # Duration in seconds
 
-# Function to merge two videos using ffmpeg
+# Function to merge two videos using ffmpeg python module
 def merge_videos(video1_path, video2_path, output_path):
     input1 = ffmpeg.input(video1_path)
     input2 = ffmpeg.input(video2_path)
@@ -47,7 +47,7 @@ for video in new_videos:
         else:
             print(f"Error: extracted string is not 14 characters long: {start_time_str}")
 
-# Determine end times for videos
+# Determine end times for videos +buffer add
 video_end_times = {}
 sorted_videos = sorted(video_start_times.items(), key=lambda x: x[1])
 for i, (video, start_time) in enumerate(sorted_videos):
